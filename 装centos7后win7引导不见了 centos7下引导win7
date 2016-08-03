@@ -1,0 +1,16 @@
+CentOS 官方发布了 7 版本，今天下载安装体验体验
+本来系统是win7，安装centos是用U盘启动安装方式
+安装成功后，发现win7的系统引导不见了。之前用的是centos6.4安装后依然保留win7引导的，到centos7就不行了
+
+解决方法
+1.使用root身份(必须)打开 /boot/grub2/grub.cfg 
+2.找到 ### BEGIN /etc/grub.d/30_os-prober ###
+   在后面添加 
+   menuentry "Windows 7 (loader) (on /dev/sda1)" {
+     insmod ntfs 
+     set root=(hd0,1)
+     chainloader +1
+   }
+
+说明：set root=(hd0,1) 其中 hd0 表示硬盘，1 表示C盘 ，我的win7装在C盘所以是1 
+3.保存重启
