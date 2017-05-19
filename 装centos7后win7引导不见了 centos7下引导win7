@@ -14,3 +14,14 @@ CentOS 官方发布了 7 版本，今天下载安装体验体验
 
 说明：set root=(hd0,1) 其中 hd0 表示硬盘，1 表示C盘 ，我的win7装在C盘所以是1 
 3.保存重启
+
+另一个方法是：
+先保证互联网是通的。 
+
+1.yum -y install epel-release 
+
+2.yum -y install ntfs-3g 
+
+3.grub2-mkconfig -o /boot/grub2/grub.cfg 
+
+3条命令运行成功，重启后，即可看到windows 7(loader)的启动项，即可进入windows。
