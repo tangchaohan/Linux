@@ -1,0 +1,4 @@
+在centos7的terminal中输入Java -verison是没问题的，但是javac的话就会提示没有此命令
+使用
+yum install java-devel
+就行了
