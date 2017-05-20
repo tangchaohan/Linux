@@ -25,12 +25,3 @@ CentOS 官方发布了 7 版本，今天下载安装体验体验
 3.grub2-mkconfig -o /boot/grub2/grub.cfg 
 
 3条命令运行成功，重启后，即可看到windows 7(loader)的启动项，即可进入windows。
-
-
-
-
-
-在centos7的terminal中输入Java -verison是没问题的，但是javac的话就会提示没有此命令
-使用
-yum install java-devel
-就行了
