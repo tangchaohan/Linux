@@ -1,0 +1,12 @@
+本插件使用Traceroute探测来获取扫描器与远程主机之间的路由信息。攻击者也可以利用这些信息来了解目标网络的网络拓扑。
+把你的主机关闭ICMP就行了，目的是禁止它发送ICMP端口不大达错误报文。
+
+traceroute原理很简单，发IP头限制TTL的UDP包探测经过的路由，每一个经过的路由会发ICMP应答，最终tracetoute的UDP将到达你的电脑，你只要关闭ICMP，内核就不会响应ICMP错误了，对方就探测不到你了。
+
+解决方案：
+
+禁traceroute：
+/sbin/iptables -A FORWARD -p icmp --icmp-type 11 -j DROP
+
+禁traceroute和ping：
+/sbin/iptables -A FORWARD -p icmp -j DROP
