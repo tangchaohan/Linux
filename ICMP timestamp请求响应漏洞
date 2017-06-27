@@ -1,0 +1,17 @@
+ 具体解决方式就是禁用ICMP timestamp-request，编辑etc/sysconfig/iptables文件，在防火墙规则里面添加如下记录： 
+  
+ -A RH-Firewall-1-INPUT -p ICMP --icmp-type timestamp-request -j DROP
+ -A RH-Firewall-1-INPUT -p ICMP --icmp-type timestamp-reply -j DROP
+ 接下来，重启iptables服务，重启命令：service iptables restart
+ 检查新添加的规则是否有效，检查命令：iptables -L -n
+ 
+  这些规则告诉server 不要使用ICMP timestamp 包。
+  
+  在SuSE Linux中，输入
+  iptables -A INPUT -p ICMP --icmp-type timestamp-request -j DROP
+  iptables -A INPUT -p ICMP --icmp-type timestamp-reply -j DROP
+  
+  #iptables-save > /root/iptables.save                             #保存新增的iptables规则
+  # vi /etc/init.d/boot.local
+   iptables-restore /root/iptables.save                            #增加一条命令，让系统的启动的时候自动恢复之前保存的防火墙规则….这样就OK
+  
