@@ -1,0 +1,6 @@
+apache服务器：
+web服务器的配置文件httpd.conf如下两行：
+ServerSignature off
+ServerTokens Prod
+
+ngnix服务器：
