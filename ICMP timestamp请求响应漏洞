@@ -7,7 +7,9 @@
  
   这些规则告诉server 不要使用ICMP timestamp 包。
   
-  在SuSE Linux中，输入
+  在SuSE Linux中，
+  方法一：
+  输入
   iptables -A INPUT -p ICMP --icmp-type timestamp-request -j DROP
   iptables -A INPUT -p ICMP --icmp-type timestamp-reply -j DROP
   
@@ -15,3 +17,10 @@
   # vi /etc/init.d/boot.local
    iptables-restore /root/iptables.save                            #增加一条命令，让系统的启动的时候自动恢复之前保存的防火墙规则….这样就OK
   
+ 方法二：
+打开/etc/sysconfig/SuSEfirewall2这个文件，这是一个配置文件，搜索FW_CUSTOMRULES，你看到的应该是FW_CUSTOMRULES=""，没错了，把它改成FW_CUSTOMRULES="/etc/sysconfig/scripts/SuSEfirewall2-custom"，意思是用户自定义的配置放在/etc/sysconfig/scripts/SuSEfirewall2-custom这个文件里。
+ 
+/etc/sysconfig/scripts/SuSEfirewall2-custom这个文件其实是系统自带的，打开这个文件会看到里面定义了三个函数，不过都是空函数。对于要打开22端口这样的需求，我们修改fw_custom_after_antispoofing函数，在里面加一行
+iptables -A input_ext -p tcp --dport 22 -j ACCEPT
+ 
+再执行sudo让配置生效。
